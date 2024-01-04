@@ -4,17 +4,19 @@
 
 const test = [10, 30, 50, 35, 20, 40, 12, 8, 100];
 
-// 10, 30, 50, 35, 20, 40, 12, 8, 100
-// 10, 30, 50, 35, 8, 40, 12, 8, 100
-// 10, 8, 50, 35, 8, 40, 12, 30, 100
-// 10, 8, 50, 35, 12, 40, 12, 30, 100
-// 10, 8, 12, 35, 12, 40, 50, 30, 100
+// 10 8 12
+// start: 0 end 2 l:0 r:2
+// target: 8
+// round 1  12 > 8 r-- r:1
+// round 2   8 = 8 r-- r：0
+// 10 10 12
+// 8 10 12
 
-function quickSort3(array, start, end) {
+export function quickSort3(array, start = 0, end = array.length - 1) {
   if (end - start < 1) {
     return;
   }
-  const midIndex = Math.floor(array.length / 2);
+  const midIndex = Math.floor((end + start) / 2);
   const target = array[midIndex];
   let l = start;
   let r = end;
@@ -30,10 +32,11 @@ function quickSort3(array, start, end) {
     array[l] = array[midIndex];
   }
   array[l] = target;
-  quickSort(array, start, l - 1);
-  quickSort(array, l + 1, end);
+  quickSort3(array, start, l - 1);
+  quickSort3(array, l + 1, end);
   return array;
 }
+// console.log(quickSort3(test))
 // quickSort3
 // start 0 end 8
 // target 20
@@ -55,7 +58,7 @@ function quickSort3(array, start, end) {
 // 10, 8, 12, 20, 35, 40, 50, 30, 100
 
 
-function quickSort2(array, start, end) {
+export function quickSort2(array, start, end) {
   if (end - start < 1) {
     return;
   }
@@ -96,7 +99,7 @@ function quickSort2(array, start, end) {
  */
 
 
-const quicksort1 = (data) => {
+export const quicksort1 = (data) => {
   if (data.length > 1) {
     const baseIndex = Math.floor(data.length / 2);
     const baseValue = data[baseIndex];
@@ -116,7 +119,7 @@ const quicksort1 = (data) => {
   } 
   return data;
 }
-console.log(quicksort1(test))
+// console.log(quicksort1(test))
 /**
  * first round
  * baseIndex: 9/2 4
