@@ -9,7 +9,7 @@ const test = [10, 30, 50, 35, 1, 40, 12, 60, 100];
 class Solution {
   partition(arr, low, high) {
     const pivot = arr[low];
-    let i = low
+    let i = low;
     for (let j = low + 1; j <= high; j++) {
       if (arr[j] < pivot) {
         i++;
@@ -17,14 +17,13 @@ class Solution {
       }
     }
     [arr[low], arr[i]] = [arr[i], arr[low]]
-    return i
+    return i;
   }
-  
   quickSort(arr, low, high) {
     if (low >= high) {
-      return ;
+      return;
     }
-    const pi = this.partition(arr, low, high);
+    const pi = this.partition(arr, low, high)
     this.quickSort(arr, low, pi - 1)
     this.quickSort(arr, pi + 1, high)
   }
