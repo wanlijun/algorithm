@@ -8,8 +8,8 @@ const test = [10, 30, 50, 35, 1, 40, 12, 60, 100];
 // 0,1,2,3
 class Solution {
   merge(arr, low, middle, high) {
-    const arr1 = arr.slice(low, middle + 1)
-    const arr2 = arr.slice(middle + 1, high + 1)
+    const arr1 = arr.slice(low, middle + 1);
+    const arr2 = arr.slice(middle + 1, high + 1);
     const len1 = arr1.length;
     const len2 = arr2.length;
     let i = low;
@@ -18,22 +18,23 @@ class Solution {
     while (k < len1 && v < len2) {
       if (arr1[k] < arr2[v]) {
         arr[i] = arr1[k]
-        k++
+        i++;
+        k++;
       } else {
         arr[i] = arr2[v]
-        v++
+        i++;
+        v++;
       }
-      i++;
     }
     while (k < len1) {
       arr[i] = arr1[k]
-      k++
-      i++
+      i++;
+      k++;
     }
     while (v < len2) {
       arr[i] = arr2[v]
-      v++
-      i++
+      i++;
+      v++;
     }
   }
   mergeSort(arr, low, high) {
@@ -41,8 +42,8 @@ class Solution {
       return;
     }
     const middle = parseInt((low + high) / 2)
-    this.mergeSort(arr, low, middle);
-    this.mergeSort(arr, middle + 1, high)
+    this.mergeSort(arr, low, middle)
+    this.mergeSort(arr, middle, high)
     this.merge(arr, low, middle, high);
   }
 }

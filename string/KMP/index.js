@@ -34,49 +34,55 @@
 //[0,1,2,0,1,2,3]
 
 // i(start) = i(current) - j
-function computeLPS(pat, pLen) {
-  const lps = [0]
-  let len = 0;
-  let i = 1;
-  while (i < pLen) {
-    if (pat.charAt(i) === pat.charAt(len)) {
-      len++;
-      lps[i] = len;
-      i++;
-    } else {
-      if (len === 0) {
-        lps[i] = 0
-        i++;
+class Solution {
+  computeLPS(pat, lps) {
+    let low = 0;
+    let fast = low + 1;
+    let len = 0;
+    while (fast < pat.length) {
+      if (pat[low] === pat[fast]) {
+        len++;
+        lps[fast] = len;
+        low++;
+        fast++;
       } else {
-        len = lps[len - 1]
+        if (low === 0) {
+          len = 0;
+          lps[fast] = 0;
+          fast++
+        } else {
+          low = lps[low - 1];
+          len = lps[low];
+        }
       }
     }
   }
- return lps;
+  search(pat, txt) {
+    const lps = [0];
+    this.computeLPS(pat, lps);
+    let low = 0;
+    let fast = 0;
+    const result = []
+    while (fast < txt.length) {
+      if (txt[fast] === pat[low]) {
+        fast++;
+        low++;
+        if (low === pat.length) {
+          result.push(fast - low + 1)
+          low = lps[low - 1];
+        }
+      } else {
+        if (low === 0) {
+          fast++
+        } else {
+          low = lps[low - 1]
+        }
+      }
+    }
+    return result;
+  }
 }
-console.log(computeLPS('AABBCCDD', 8))
-function KMPSearch(pat, txt) {
-  const pLen = pat.length;
-  const tLen = txt.length;
-  const i = 0;
-  const j = 0;
-  const result = []
-  const lps = computeLPS(txt);
-  while(i< pLen) {
-    if (pat.charAt[i] === txt.charAt[i]) {
-      i++;
-      j++;
-      if (j === tLen) {
-        result.push(i - j)
-        j = lps[j - 1]
-      }
-    } else {
-      if (j === 0) {
-        i++;
-      } else {
-        j = lps[j-1]
-      }
-    }
-  }
+const solution = new Solution();
+solution.search('AABA', 'AABAACAADAABAABA')
 
-}
+https://www.geeksforgeeks.org/problems/search-pattern0205/1?utm_source=geeksforgeeks&utm_medium=article_practice_tab&utm_campaign=article_practice_tab
